@@ -1,7 +1,8 @@
 # EPP622Project
 copy the reads of one isolate UTK5 into Newton server through FileZilla;
-load modules;
+Out of the storage limit of 40G; Asked Gerald for additional spaces;
 
+load modules;
 module load sra-tools trimmomatic bwa fastqc
 
 in raw_data file, download reference genome sequence;
