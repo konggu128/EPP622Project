@@ -24,9 +24,12 @@ Quality Examination using FASTQC;
 mkdir 1_fastqc
 cd  1_fastqc/
 fastqc -t 2 -o . ../../raw_data/UTK-5.fastq
- 
 
-
+Quality trim;
+trimmomatic SE \
+../../raw_data/UTK-5.fastq \
+UTK-5.trimmed.fastq \
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 
 
