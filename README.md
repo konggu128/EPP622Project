@@ -65,21 +65,41 @@ SRR569170_2.trimmed.unpaired.fastq \
 ILLUMINACLIP:/data/apps/trimmomatic/0.36/adapters/TruSeq3-PE.fa:2:30:10 \
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
-
+cd ..
+mkdir 3_fastqc
+cd 3_fastqc/
+fastqc -t 2 -o . ../2_trimmomatic/*.trimmed.paired.fastq
 
 
 Mapping reference genome;
 cd ..
-mkdir 3_bwa
-cd 3_bwa
+mkdir 4_bwa
+cd 4_bwa
 
-qrsh -pe threads 4 -l mem=8G
-bwa index /lustre/projects/qcheng1/EPP622Project/raw_data/
+bwa index /lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa
+ls /lustre/projects/qcheng1/EPP622Project/raw_data/
+
 bwa mem \
 -t 4 \
-/lustre/projects/qcheng1/EPP622Project/raw_data/GCA_001191645.1_P_striiformis_V1_genomic.fna \
-../2_trimmomatic/UTK5.trimmed.fastq \
-> UTK5.sam
+/lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa \
+../2_trimmomatic/SRR364118_1.trimmed.paired.fastq \
+../2_trimmomatic/SRR364118_2.trimmed.paired.fastq \
+> SRR364118.sam
+
+bwa mem \
+-t 4 \
+/lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa \
+../2_trimmomatic/SRR534069_1.trimmed.paired.fastq \
+../2_trimmomatic/SRR534069_2.trimmed.paired.fastq \
+> SRR534069.sam
+
+bwa mem \
+-t 4 \
+/lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa \
+../2_trimmomatic/SRR569170_1.trimmed.paired.fastq \
+../2_trimmomatic/SRR569170_2.trimmed.paired.fastq \
+> SRR569170.sam
+
 
 samtools sort -@ 2 -o UTK5.bam UTK5.sam
 samtools index UTK5.bam
