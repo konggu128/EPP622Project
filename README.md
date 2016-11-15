@@ -1,16 +1,16 @@
 # EPP622Project
 
 Out of the storage limit of 40G; Asked Gerald for additional spaces;
-copy the reads of one isolate UTK5 into Newton server through FileZilla;
+copy the reads of three isolates of Puccinia graminis into Newton server through FileZilla;
 
 cd /lustre/projects/qcheng1/EPP622Project/raw_data/
 
 in raw_data file, download reference genome sequence;
 
-wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/191/645/GCA_001191645.1_P_striiformis_V1/GCA_001191645.1_P_striiformis_V1_genomic.fna.gz
+wget ftp://ftp.ensemblgenomes.org/pub/fungi/release-33/fasta/puccinia_graminis/dna/Puccinia_graminis.ASM14992v1.dna.toplevel.fa.gz
 
-gunzip GCA_001191645.1_P_striiformis_V1_genomic.fna.gz
-wc -l GCA_001191645.1_P_striiformis_V1_genomic.fna
+gunzip *.gz
+wc -l Puccinia_graminis.ASM14992v1.dna.toplevel.fna
 
 load modules;
 module load sra-tools trimmomatic bwa fastqc
