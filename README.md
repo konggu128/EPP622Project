@@ -10,7 +10,7 @@ in raw_data file, download reference genome sequence;
 wget ftp://ftp.ensemblgenomes.org/pub/fungi/release-33/fasta/puccinia_graminis/dna/Puccinia_graminis.ASM14992v1.dna.toplevel.fa.gz
 
 gunzip *.gz
-wc -l Puccinia_graminis.ASM14992v1.dna.toplevel.fna
+wc -l Puccinia_graminis.ASM14992v1.dna.toplevel.fa
 
 load modules;
 module load sra-tools trimmomatic bwa fastqc
@@ -23,17 +23,48 @@ cd analysis
 Quality Examination using FASTQC;
 mkdir 1_fastqc
 cd  1_fastqc/
-fastqc -t 2 -o . ../../raw_data/UTK5.fastq
+fastqc -t 2 -o . ../../raw_data/*.fastq
 
 Quality trim;
 cd ..
 mkdir 2_trimmomatic
 cd 2_trimmomatic
 
-trimmomatic SE \
-../../raw_data/UTK5.fastq \
-UTK5.trimmed.fastq \
+
+
+trimmomatic PE \
+../../raw_data/SRR364118_1.fastq \
+../../raw_data/SRR364118_2.fastq \
+SRR364118_1.trimmed.paired.fastq \
+SRR364118_1.trimmed.unpaired.fastq \
+SRR364118_2.trimmed.paired.fastq \
+SRR364118_2.trimmed.unpaired.fastq \
+ILLUMINACLIP:/data/apps/trimmomatic/0.36/adapters/TruSeq3-PE.fa:2:30:10 \
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+
+trimmomatic PE \
+../../raw_data/SRR534069_1.fastq \
+../../raw_data/SRR534069_2.fastq \
+SRR534069_1.trimmed.paired.fastq \
+SRR534069_1.trimmed.unpaired.fastq \
+SRR534069_2.trimmed.paired.fastq \
+SRR534069_2.trimmed.unpaired.fastq \
+ILLUMINACLIP:/data/apps/trimmomatic/0.36/adapters/TruSeq3-PE.fa:2:30:10 \
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+trimmomatic PE \
+../../raw_data/SRR569170_1.fastq \
+../../raw_data/SRR569170_2.fastq \
+SRR569170_1.trimmed.paired.fastq \
+SRR569170_1.trimmed.unpaired.fastq \
+SRR569170_2.trimmed.paired.fastq \
+SRR569170_2.trimmed.unpaired.fastq \
+ILLUMINACLIP:/data/apps/trimmomatic/0.36/adapters/TruSeq3-PE.fa:2:30:10 \
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+
+
 
 Mapping reference genome;
 cd ..
