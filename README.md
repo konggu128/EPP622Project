@@ -3,6 +3,8 @@
 Out of the storage limit of 40G; Asked Gerald for additional spaces;
 copy the reads of three isolates of Puccinia graminis into Newton server through FileZilla;
 
+
+qrsh -pe threads 4 -l mem=16G
 cd /lustre/projects/qcheng1/EPP622Project/raw_data/
 
 in raw_data file, download reference genome sequence;
