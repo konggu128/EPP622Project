@@ -15,7 +15,7 @@ gunzip *.gz
 wc -l Puccinia_graminis.ASM14992v1.dna.toplevel.fa
 
 load modules;
-module load sra-tools trimmomatic bwa fastqc
+module load sra-tools trimmomatic bwa fastqc bcftools
 
 
 cd ..
@@ -109,3 +109,50 @@ samtools index SRR534069.bam
 
 samtools sort -@ 2 -o SRR569170.bam SRR569170.sam
 samtools index SRR569170.bam
+
+ln -s /lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa
+ls -l -h
+
+samtools faidx Puccinia_graminis.ASM14992v1.dna.toplevel.fa
+
+samtools tview SRR364118.bam Puccinia_graminis.ASM14992v1.dna.toplevel.fa
+
+cd ..
+mkdir 5_samtools
+cd 5_samtools
+
+ln -s ../4_bwa/SRR364118.bam
+ln -s ../4_bwa/SRR534069.bam
+ln -s ../4_bwa/SRR569170.bam
+ln -s /lustre/projects/qcheng1/EPP622Project/raw_data/Puccinia_graminis.ASM14992v1.dna.toplevel.fa
+
+
+create script vcf.sh;
+#$ -N samtools
+#$ -cwd
+#$ -S /bin/bash
+#$ -q medium*
+#$ -l mem=16G
+
+module load samtools
+module load bcftools
+
+samtools mpileup \
+-uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR364118.bam \
+| \
+bcftools call -mv --threads 4 > SRR364118HM.raw.vcf
+
+samtools mpileup \
+-uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam \
+| \
+bcftools call -mv --threads 4 > SRR534069HM.raw.vcf
+
+samtools mpileup \
+-uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam \
+| \
+bcftools call -mv --threads 4 > SRR569170HM.raw.vcf
+
+save and exit vcf.sh;
+
+chmod u+x vcf.sh
+./
