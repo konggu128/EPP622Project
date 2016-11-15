@@ -161,3 +161,16 @@ chmod u+x vcf.sh
 bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR364118HM.raw.vcf > SRR364118HM.flt.vcf
 bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR534069HM.raw.vcf > SRR534069HM.flt.vcf
 bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR569170HM.raw.vcf > SRR569170HM.flt.vcf
+
+
+
+
+try another variant calling in 6_samtools;
+
+
+
+
+
+
+
+
