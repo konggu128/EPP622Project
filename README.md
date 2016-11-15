@@ -101,6 +101,11 @@ bwa mem \
 > SRR569170.sam
 
 
-samtools sort -@ 2 -o UTK5.bam UTK5.sam
-samtools index UTK5.bam
+samtools sort -@ 2 -o SRR364118.bam SRR364118.sam
+samtools index SRR364118.bam
 
+samtools sort -@ 2 -o SRR534069.bam SRR534069.sam
+samtools index SRR534069.bam
+
+samtools sort -@ 2 -o SRR569170.bam SRR569170.sam
+samtools index SRR569170.bam
