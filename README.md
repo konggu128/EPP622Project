@@ -155,7 +155,7 @@ bcftools call -mv --threads 4 > SRR569170HM.raw.vcf
 save and exit vcf.sh;
 
 chmod u+x vcf.sh
-./
+./vcf.sh
 
 
 bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR364118HM.raw.vcf > SRR364118HM.flt.vcf
@@ -163,36 +163,10 @@ bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR534069HM.raw.vcf > SRR5340
 bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR569170HM.raw.vcf > SRR569170HM.flt.vcf
 
 
-#$ -N samtools
-#$ -cwd
-#$ -S /bin/bash
-#$ -q medium*
-#$ -l mem=16G
-
-module load samtools
-module load bcftools
-
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR364118.bam \
-| \
-bcftools view -q 0.35 --threads 4 > SRR364118HM.raw.vcf
-
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam \
-| \
-bcftools view -q 0.35 --threads 4 > SRR534069HM.raw.vcf
-
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam \
-| \
-bcftools view -q 0.35 --threads 4 > SRR569170HM.raw.vcf
-
-
 
 
 try another variant calling in 6_samtools;
 
-
 #$ -N samtools
 #$ -cwd
 #$ -S /bin/bash
@@ -217,6 +191,10 @@ samtools mpileup \
 | \
 bcftools view -q 0.35 --threads 4 > SRR569170HM.raw.vcf
 
+
+bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR364118HM.raw.vcf > SRR364118.flt.vcf
+bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR534069HM.raw.vcf > SRR534069.flt.vcf
+bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR569170HM.raw.vcf > SRR569170.flt.vcf
 
 
 
