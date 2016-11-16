@@ -138,67 +138,67 @@ module load samtools
 module load bcftools
 
 samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR364118.bam \
-| \
-bcftools call -mv --threads 4 > SRR364118HM.raw.vcf
+-uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR364118.bam 
+| bcftools call -mv --threads 4 > SRR364118.raw.vcf
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR364118.raw.vcf > SRR364118.flt.vcf
+grep 'PASS' SRR364118.flt.vcf > SRR364118.vcf
 
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam \
-| \
-bcftools call -mv --threads 4 > SRR534069HM.raw.vcf
+samtools mpileup -uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam 
+| bcftools call -mv --threads 4 > SRR534069.raw.vcf
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR534069.raw.vcf > SRR534069.flt.vcf 
+grep 'PASS' SRR534069.flt.vcf > SRR534069.vcf
 
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam \
-| \
-bcftools call -mv --threads 4 > SRR569170HM.raw.vcf
+samtools mpileup -uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam 
+| bcftools call -mv --threads 4 > SRR569170.raw.vcf
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR569170.raw.vcf > SRR569170.flt.vcf 
+grep 'PASS' SRR569170.flt.vcf > SRR569170.vcf
 
 save and exit vcf.sh;
 
 chmod u+x vcf.sh
 ./vcf.sh
 
-
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR364118HM.raw.vcf > SRR364118HM.flt.vcf
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR534069HM.raw.vcf > SRR534069HM.flt.vcf
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR569170HM.raw.vcf > SRR569170HM.flt.vcf
-
+cd analysis/
+mkdir 6_snpEff
+cd 6_snpEff
 
 
-
-try another variant calling in 6_samtools;
 
 #$ -N samtools
-#$ -cwd
+
+
 #$ -S /bin/bash
+
 #$ -q medium*
+
 #$ -l mem=16G
 
+
 module load samtools
+
 module load bcftools
 
 samtools mpileup \
+
 -uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR364118.bam \
+
 | \
-bcftools view -q 0.35 --threads 4 > SRR364118HM.raw.vcf
 
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam \
+bcftools call -mv --threads 4 > SRR364118.raw.vcf
+
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR364118.raw.vcf > SRR364118.flt.vcf
+grep 'PASS' SRR364118.flt.vcf > SRR364118.vcf
+
+
+
+samtools mpileup -uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR534069.bam \
 | \
-bcftools view -q 0.35 --threads 4 > SRR534069HM.raw.vcf
+bcftools call -mv --threads 4 > SRR534069.raw.vcf
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR534069.raw.vcf > SRR534069.flt.vcf
+grep 'PASS' SRR534069.flt.vcf > SRR534069.vcf
 
-samtools mpileup \
--uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam \
+samtools mpileup -uf Puccinia_graminis.ASM14992v1.dna.toplevel.fa SRR569170.bam
 | \
-bcftools view -q 0.35 --threads 4 > SRR569170HM.raw.vcf
-
-
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR364118HM.raw.vcf > SRR364118.flt.vcf
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR534069HM.raw.vcf > SRR534069.flt.vcf
-bcftools filter -s LowQual -e '%QUAL<20 || DP>500' SRR569170HM.raw.vcf > SRR569170.flt.vcf
-
-
-
-
-
-
-
+bcftools call -mv --threads 4 > SRR569170.raw.vcf
+bcftools filter -s LowQual -i '%QUAL>20 || DP>10' SRR569170.raw.vcf > SRR569170.flt.vcf
+grep 'PASS' SRR569170.flt.vcf > SRR569170.vcf
