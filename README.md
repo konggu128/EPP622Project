@@ -161,6 +161,15 @@ chmod u+x vcf.sh
 ./vcf.sh
 
 
+
+cut SRR364118.vcf -f 1,2,3,4,5 > SRR364118.final.vcf
+cut SRR534069.vcf -f 1,2,3,4,5 > SRR534069.final.vcf
+cut SRR569170.vcf -f 1,2,3,4,5 > SRR569170.final.vcf
+
+sort SRR569170.final.vcf SRR364118.final.vcf | uniq -d > 1.vcf
+grep 'Mito' 1.vcf > 3.vcf
+
+
 cd analysis/
 mkdir 6_snpEff
 cd 6_snpEff
