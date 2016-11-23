@@ -161,15 +161,14 @@ chmod u+x vcf.sh
 ./vcf.sh
 
 
+mkdir 6_snp
+cd 6_snp
+cut ../5_samtools/SRR364118.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR364118.final.vcf
+cut ../5_samtools/SRR534069.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR534069.final.vcf
+cut ../5_samtools/SRR569170.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR569170.final.vcf
 
-cut SRR364118.vcf -f 1,2,3,4,5 > SRR364118.final.vcf
-cut SRR534069.vcf -f 1,2,3,4,5 > SRR534069.final.vcf
-cut SRR569170.vcf -f 1,2,3,4,5 > SRR569170.final.vcf
-
-sort SRR569170.final.vcf SRR364118.final.vcf | uniq -d > 1.vcf
-grep 'Mito' 1.vcf > 3.vcf
-
-
-cd analysis/
-mkdir 6_snpEff
-cd 6_snpEff
+sort SRR569170.final.vcf SRR364118.final.vcf | uniq -d > 18_70.vcf
+sort SRR569170.final.vcf SRR534069.final.vcf | uniq -d > 69_70.vcf
+sort SRR364118.final.vcf SRR534069.final.vcf | uniq -d > 18_69.vcf
+sort SRR364118.final.vcf 69_70.vcf | uniq -d > 18_69_70.vcf
+wc -l *vcf
