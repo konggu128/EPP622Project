@@ -11,6 +11,15 @@ in raw_data file, download reference genome sequence;
 
 wget ftp://ftp.ensemblgenomes.org/pub/fungi/release-33/fasta/puccinia_graminis/dna/Puccinia_graminis.ASM14992v1.dna.toplevel.fa.gz
 
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR364/SRR364118/SRR364118_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR364/SRR364118/SRR364118_2.fastq.gz
+
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR534/SRR534069/SRR534069_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR534/SRR534069/SRR534069_2.fastq.gz
+
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR569/SRR569170/SRR569170_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR569/SRR569170/SRR569170_2.fastq.gz
+
 gunzip *.gz
 wc -l Puccinia_graminis.ASM14992v1.dna.toplevel.fa
 
