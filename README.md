@@ -160,15 +160,28 @@ save and exit vcf.sh;
 chmod u+x vcf.sh
 ./vcf.sh
 
+cat SRR364118.vcf SRR534069.vcf SRR569170.vcf | grep 'supercont' | awk '!seen[$0]++' > total.vcf
+##homozygous loci:
+ls total.vcf | awk '{ print "less -S "$1"|grep -v \"^#\"|grep -v INDEL|grep \"1/1\"|wc -l && echo "$1; }'|sh
 
 mkdir 6_snp
 cd 6_snp
 cut ../5_samtools/SRR364118.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR364118.final.vcf
 cut ../5_samtools/SRR534069.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR534069.final.vcf
 cut ../5_samtools/SRR569170.vcf -f 1,2,3,4,5  | grep 'supercont' > SRR569170.final.vcf
+cat SRR364118.final.vcf SRR534069.final.vcf SRR569170.final.vcf | awk '!seen[$0]++' > total_5columns.vcf
 
 sort SRR569170.final.vcf SRR364118.final.vcf | uniq -d > 18_70.vcf
 sort SRR569170.final.vcf SRR534069.final.vcf | uniq -d > 69_70.vcf
 sort SRR364118.final.vcf SRR534069.final.vcf | uniq -d > 18_69.vcf
 sort SRR364118.final.vcf 69_70.vcf | uniq -d > 18_69_70.vcf
+wc -l *vcf
+
+cd ..
+mkdir 7_indel
+cd 7_indel
+grep 'supercont' ../5_samtools/SRR364118.vcf | grep 'INDEL' | cut -f 1,2,3,4,5 > SRR364118.indel.vcf
+grep 'supercont' ../5_samtools/SRR534069.vcf | grep 'INDEL' | cut -f 1,2,3,4,5 > SRR534069.indel.vcf
+grep 'supercont' ../5_samtools/SRR569170.vcf | grep 'INDEL' | cut -f 1,2,3,4,5 > SRR569170.indel.vcf
+cat SRR364118.indel.vcf SRR534069.indel.vcf SRR569170.indel.vcf | awk '!seen[$0]++' > indel.vcf
 wc -l *vcf
