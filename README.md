@@ -193,3 +193,8 @@ grep 'supercont' ../5_samtools/SRR569170.vcf | grep 'INDEL' | cut -f 1,2,3,4,5 >
 cat SRR364118.indel.vcf SRR534069.indel.vcf SRR569170.indel.vcf | awk '!seen[$0]++' > indel.vcf
 wc -l *vcf
 
+Generate venn diagram in R:
+install.packages("VennDiagram")
+library(VennDiagram)
+draw.triple.venn(area1 = 13553, area2 = 522862, area3 = 307825, n12 = 8440, n23 = 75218, n13 = 5609, n123 = 4779, category = c("UG99", "09ETH8-3", "84KEN8C"), lty = "blank", fill = c("dodgerblue", "goldenrod1", "seagreen3"))
+
